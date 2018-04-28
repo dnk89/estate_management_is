@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common :: header"/>
+<body>
+
+<div class="container">
+    <div class="row ">
+        <div class="main-center ">
+            <div class="bg-danger" th:if="${param.error}">
+                Nepareizs lietotāja pieejas vārds vai parole.
+            </div>
+            <div class="bg-danger" th:if="${param.logout}">
+                Jūs esat izgājis no sistēmas.
+            </div>
+            <form class="form-signin" th:action="@{/index}" method="post">
+                <h2 class="form-signin-heading">Autorizācija</h2>
+                <div class="form-group">
+                    <label for="username" class="sr-only">Lietotāja pieejas vārds</label>
+                    <input type="text" roleId="username" class="form-control" placeholder="Pieejas vārds" name="username"
+                           id="username"
+                           required="required" autofocus="autofocus"/>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="sr-only">Parole</label>
+                    <input type="password" roleId="inputPassword" class="form-control" placeholder="Parole"
+                           id="password"
+                           name="password" required="required"/>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Ieiet sistēmā</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="common :: scripts"/>
+
+</body>
+</html>
