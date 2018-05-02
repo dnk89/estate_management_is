@@ -1,18 +1,37 @@
 package edu.rtu.cs.pit.estatemanagement.users.domain;
 
-public enum Role {
-    ADMIN("ROLE_ADMIN"),
-    OPERATOR("ROLE_OPERATOR"),
-    CUSTOMER("ROLE_CUSTOMER");
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-    private final String fullName;
+@Entity(name = "system_user_role")
+public class Role {
 
-    Role(String fullName) {
-        this.fullName = fullName;
+    @Id
+    private int id;
+    private String name;
+    private String displayName;
+
+    public int getId() {
+        return id;
     }
 
-    @Override
-    public String toString() {
-        return this.fullName;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

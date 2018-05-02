@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -47,15 +48,19 @@ public class HomeController {
 
     @RequestMapping("/authorization")
     public String authorization(Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        if (user.getRole().equalsIgnoreCase(Role.ADMIN.toString())) {
+        Optional<User> user = userService.findByUsername(principal.getName());
+        if (!user.isPresent()) {
+            LOG.warn(String.format("Lietotājs %s nav atrasts", principal.getName()));
+            return "redirect:/index?error";
+        }
+        if (user.get().getRole().getName().equalsIgnoreCase("ROLE_ADMIN")) {
             return "redirect:/admin";
-        } else if (user.getRole().equalsIgnoreCase(Role.OPERATOR.toString())) {
+        } else if (user.get().getRole().getName().equalsIgnoreCase("ROLE_OPERATOR")) {
             return "redirect:/operator";
-        } else if (user.getRole().equalsIgnoreCase(Role.CUSTOMER.toString())) {
+        } else if (user.get().getRole().getName().equalsIgnoreCase("ROLE_CUSTOMER")) {
             return "redirect:/customer";
         } else {
-            LOG.warn(String.format("User with role %s is not allowed", user.getRole()));
+            LOG.warn(String.format("Lietotājs ar tipu %s nav atļauts", user.get().getRole()));
             return "redirect:/index?error";
         }
     }

@@ -3,10 +3,7 @@ package edu.rtu.cs.pit.estatemanagement.users.domain;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,10 +15,12 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToOne
+    private Role role;
+
     private String username;
     private String password;
     private String email;
-    private String role;
 
     public Long getId() {
         return id;
@@ -31,9 +30,17 @@ public class User implements UserDetails {
         this.id = id;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String getPassword() {
-        return "{noop}" + password; // {noop} prefix is for automatic plain text password encoding in spring
+        return password;
     }
 
     public void setPassword(String password) {
@@ -57,18 +64,10 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new Authority(role));
+        authorities.add(new Authority(role.getName()));
         return authorities;
     }
 

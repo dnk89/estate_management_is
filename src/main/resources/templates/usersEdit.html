@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/common :: header"/>
+<body>
+<div th:replace="common/common :: admin-navbar"/>
+<div class="container">
+    <div class="row ">
+        <div class="main-center ">
+            <form th:action="@{/admin/users/edit}" method="post">
+                <h2>Lietotāja labošana</h2>
+                <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${errorText}">
+                </div>
+                <div class="form-group" >
+                    <label for="role">Lietotāja tips</label>
+                    <select class="form-control" th:value="${role}" name="role" id="role">
+                        <option th:each="r : ${roles}" th:value="${r.name}" th:text="${r.displayName}" th:selected="${r.name==role}" />
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="username">Lietotāja pieejas vārds</label>
+                    <input type="text"
+                           roleId="username"
+                           class="form-control"
+                           placeholder="Ievadiet pieejas vārdu"
+                           name="username"
+                           id="username"
+                           th:value="${username}"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="password">Lietotāja parole</label>
+                    <input type="password"
+                           roleId="password"
+                           class="form-control"
+                           placeholder="Ievadiet paroli"
+                           id="password"
+                           name="password"
+                           autofocus="autofocus"
+                           th:value="${password}"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="email">Lietotāja e-pasts</label>
+                    <input type="text"
+                           class="form-control"
+                           th:value="${email}"
+                           id="email" name="email"
+                           roleId="email"
+                           placeholder="Ievadiet e-pastu"
+                    />
+                </div>
+                <hr />
+                <button class="btn btn-outline-dark" type="submit">Saglabāt izmaiņas</button>
+                <a href="/admin/users" class="btn btn-outline-danger" role="button">Atcelt</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="common/common :: scripts"/>
+
+</body>
+</html>

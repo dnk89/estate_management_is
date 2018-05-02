@@ -1,8 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="common :: header"/>
+<head th:replace="common/common :: header"/>
 <body>
-<h1>TODO: Sistēmas lietotāji</h1>
-<div th:replace="common :: scripts"/>
+<div th:replace="common/common :: admin-navbar"/>
+<div class="container">
+    <div class="row">
+        <div class="main-center ">
+            <h2>Sistēmas lietotāji</h2>
+            <hr />
+            <a href="/admin/users/create" class="btn btn-primary btn-md btn-outline-dark" role="button">Izveidot jaunu</a>
+            <hr />
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered table-sm">
+                    <thead>
+                    <tr>
+                        <th>Pieejas vārds</th>
+                        <th>E-pasts</th>
+                        <th>Tips</th>
+                        <th>Darbības</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-th-each="user : ${users}">
+                        <td data-th-text="${user.username}">...</td>
+                        <td data-th-text="${user.email}">...</td>
+                        <td data-th-text="${user.role.displayName}">...</td>
+                        <td>
+                            <a th:href="@{/admin/users/edit?username=}+${user.username}">Labot</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="common/common :: scripts"/>
 </body>
 </html>
