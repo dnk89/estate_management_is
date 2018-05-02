@@ -61,6 +61,12 @@ public class UserController {
             LOG.error(message);
             model.addAttribute("error", true);
             model.addAttribute("errorText", message);
+            List<Role> roles = roleService.findAll();
+            model.addAttribute("roles", roles);
+            model.addAttribute("role", role);
+            model.addAttribute("username", username);
+            model.addAttribute("password", password);
+            model.addAttribute("email", email);
             return "usersCreate";
         }
         return "redirect:/admin/users";
@@ -96,6 +102,12 @@ public class UserController {
             LOG.error(message);
             model.addAttribute("error", true);
             model.addAttribute("errorText", message);
+            List<Role> roles = roleService.findAll();
+            model.addAttribute("roles", roles);
+            model.addAttribute("role", role);
+            model.addAttribute("username", username);
+            model.addAttribute("password", password);
+            model.addAttribute("email", email);
             return "usersEdit";
         }
         return "redirect:/admin/users";

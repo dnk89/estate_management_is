@@ -3,13 +3,14 @@
 <head th:replace="common/common :: header"/>
 <body>
 <div th:replace="common/common :: admin-navbar"/>
+<div th:replace="common/common :: error-panel"/>
 <div class="container">
     <div class="row ">
         <div class="main-center ">
             <form th:action="@{/admin/users/edit}" method="post">
                 <h2>Lietotāja labošana</h2>
-                <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${errorText}">
-                </div>
+                <!--<div class="alert alert-danger" role="alert" th:if="${error}" th:text="${errorText}">-->
+                <!--</div>-->
                 <div class="form-group" >
                     <label for="role">Lietotāja tips</label>
                     <select class="form-control" th:value="${role}" name="role" id="role">
