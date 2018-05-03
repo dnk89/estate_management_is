@@ -4,14 +4,12 @@
 <body>
 <div th:replace="common/common :: admin-navbar"/>
 <div th:replace="common/common :: error-panel"/>
-<div class="container">
-    <div class="row ">
-        <div class="main-center ">
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-3">
+            <h2 class="form-signin-heading">Jauns lietotājs</h2>
+            <hr />
             <form th:action="@{/admin/users/create}" method="post">
-                <h2 class="form-signin-heading">Jauns lietotājs</h2>
-                <hr />
-                <!--<div class="alert alert-danger" role="alert" th:if="${error}" th:text="${errorText}">-->
-                <!--</div>-->
                 <div class="form-group" >
                     <label for="role">Lietotāja tips</label>
                     <select class="form-control" th:value="${role}" name="role" id="role">
@@ -52,10 +50,11 @@
                     />
                 </div>
                 <hr />
-                <button class="btn btn-outline-dark" type="submit">Izveidot</button>
-                <a href="/admin/users" class="btn btn-outline-danger" role="button">Atcelt</a>
+                <button class="btn btn-outline-dark btn-block" type="submit">Izveidot</button>
+                <a href="/admin/users" class="btn btn-outline-danger btn-block" role="button">Atcelt</a>
             </form>
         </div>
+        <div class="col"></div>
     </div>
 </div>
 

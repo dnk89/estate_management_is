@@ -18,4 +18,8 @@ public interface UserService {
     String encodePassword(String password);
 
     String decodePassword(String password);
+
+    void deleteUser(String username) throws Exception;
+
+    List<User> findBy(String username, String email, String role);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.util.UriUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,9 +29,32 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "/admin/users")
-    public String users(Model model) {
+    @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
+    public String users(@RequestParam(value = "error", required=false) String error, Model model) {
+        model.addAttribute("error", (error != null));
+        model.addAttribute("errorText", error);
+        List<Role> roles = roleService.findAll();
+        model.addAttribute("roles", roles);
+        model.addAttribute("role", "");
         List<User> users = userService.findAll();
+        model.addAttribute("users", users);
+        return "users";
+    }
+
+    @RequestMapping(value = "/admin/users", method = RequestMethod.POST)
+    public String usersSearch(@ModelAttribute("username") String username,
+                              @ModelAttribute("email") String email,
+                              @ModelAttribute("role") String role,
+                              Model model) {
+
+        model.addAttribute("error", false);
+        model.addAttribute("errorText", "");
+        List<Role> roles = roleService.findAll();
+        model.addAttribute("roles", roles);
+        model.addAttribute("role", role);
+        model.addAttribute("username", username);
+        model.addAttribute("email", email);
+        List<User> users = userService.findBy(username, email, role);
         model.addAttribute("users", users);
         return "users";
     }
@@ -109,6 +133,18 @@ public class UserController {
             model.addAttribute("password", password);
             model.addAttribute("email", email);
             return "usersEdit";
+        }
+        return "redirect:/admin/users";
+    }
+
+    @RequestMapping(value = "/admin/users/delete")
+    public String deleteUser(@RequestParam(value = "username") String username, Model model) {
+        try {
+            userService.deleteUser(username);
+        } catch (Exception e) {
+            String message = String.format("Nevar izdzēst lietotāju! Kļūda: %s", e.getMessage());
+            LOG.error(message);
+            return "redirect:/admin/users?error=" + UriUtils.encodeQuery(message, "UTF-8");
         }
         return "redirect:/admin/users";
     }

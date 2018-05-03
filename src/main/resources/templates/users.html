@@ -3,13 +3,38 @@
 <head th:replace="common/common :: header"/>
 <body>
 <div th:replace="common/common :: admin-navbar"/>
-<div class="container">
-    <div class="row">
-        <div class="main-center ">
+<div th:replace="common/common :: error-panel"/>
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-3">
             <h2>Sistēmas lietotāji</h2>
             <hr />
-            <a href="/admin/users/create" class="btn btn-primary btn-md btn-outline-dark" role="button">Izveidot jaunu</a>
+            <div>
+                <a href="/admin/users/create" class="btn btn-primary btn-md btn-outline-dark btn-block" role="button">Izveidot jaunu</a>
+            </div>
             <hr />
+            <div>
+                <form th:action="@{/admin/users}" method="post">
+                    <div class="form-group" >
+                        <label for="role">Tips</label>
+                        <select class="form-control" th:value="${role}" name="role" id="role">
+                            <option value="">Visi</option>
+                            <option th:each="r : ${roles}" th:value="${r.name}" th:text="${r.displayName}" th:selected="${r.name==role}" />
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Pieejas vārds</label>
+                        <input type="text" class="form-control" placeholder="Pieejas vārds" name="username" id="username" th:value="${username}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-pasts</label>
+                        <input type="text" class="form-control" placeholder="E-pasts" id="email" name="email" th:value="${email}" />
+                    </div>
+                    <button class="btn btn-outline-dark btn-md btn-block" type="submit">Meklēt</button>
+                </form>
+            </div>
+        </div>
+        <div class="col">
             <div class="table-responsive">
                 <table id="example" class="table table-bordered table-sm">
                     <thead>
@@ -27,6 +52,8 @@
                         <td data-th-text="${user.role.displayName}">...</td>
                         <td>
                             <a th:href="@{/admin/users/edit?username=}+${user.username}">Labot</a>
+                            &nbsp;
+                            <a th:href="@{/admin/users/delete?username=}+${user.username}">Dzēst</a>
                         </td>
                     </tr>
                     </tbody>
