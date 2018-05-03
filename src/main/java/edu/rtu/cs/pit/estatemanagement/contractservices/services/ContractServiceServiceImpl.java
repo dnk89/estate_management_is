@@ -77,11 +77,9 @@ public class ContractServiceServiceImpl implements ContractServiceService {
 
         List<ContractService> findServices = findBy(code, description);
 
-        if (calculationType != null) {
-            findServices = findServices.stream()
-                    .filter(service -> service.getCalculationType() == calculationType)
-                    .collect(Collectors.toList());
-        }
+        findServices = findServices.stream()
+                .filter(service -> service.getCalculationType() == calculationType)
+                .collect(Collectors.toList());
 
         return findServices;
     }

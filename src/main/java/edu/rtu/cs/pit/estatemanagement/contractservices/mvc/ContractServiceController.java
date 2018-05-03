@@ -1,4 +1,4 @@
-package edu.rtu.cs.pit.estatemanagement.contractservices;
+package edu.rtu.cs.pit.estatemanagement.contractservices.mvc;
 
 import edu.rtu.cs.pit.estatemanagement.contractservices.domain.AmountCalculationType;
 import edu.rtu.cs.pit.estatemanagement.contractservices.domain.ContractService;
@@ -55,7 +55,6 @@ public class ContractServiceController {
         model.addAttribute("services", services);
         return "services";
     }
-
 
     @RequestMapping(value = "/operator/services/create", method = RequestMethod.GET)
     public String createService(Model model) {

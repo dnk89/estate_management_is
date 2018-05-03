@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/common :: header"/>
+<body>
+<div th:replace="common/common :: operator-navbar"/>
+<div th:replace="common/common :: error-panel"/>
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-3">
+            <h2>Pakalpojumi</h2>
+            <hr />
+            <div>
+                <a href="/operator/customers/create" class="btn btn-primary btn-md btn-outline-dark btn-block" role="button">Izveidot jaunu</a>
+            </div>
+            <hr />
+            <form th:action="@{/operator/customers}" method="post">
+                <div class="form-group" >
+                    <label for="customerType">Klienta tips</label>
+                    <select class="form-control" th:value="${customerType}" name="customerType" id="customerType">
+                        <option value="">Visi</option>
+                        <option th:each="ct : ${T(edu.rtu.cs.pit.estatemanagement.customers.domain.CustomerType).values()}"
+                                th:value="${ct}" th:text="${ct.description}" th:selected="${ct==customerType}" />
+                    </select>
+                </div>
+                <div class="form-group" >
+                    <label for="code">Personas vai reģistrācijas kods</label>
+                    <input type="text" class="form-control" placeholder="Kods" name="code" id="code" th:value="${code}" />
+                </div>
+                <div class="form-group">
+                    <label for="description">Vārds uzvārds vai nosaukums</label>
+                    <input type="text" class="form-control" placeholder="Nosaukums" name="description" id="description" th:value="${description}" />
+                </div>
+                <div class="form-group">
+                    <label for="email">E-pasts</label>
+                    <input type="email" class="form-control" placeholder="E-pasts" name="email" id="email" th:value="${email}" />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefons</label>
+                    <input type="text" class="form-control" placeholder="Telefons" name="phone" id="phone" th:value="${phone}" />
+                </div>
+                <div class="form-group">
+                    <label for="address">Adrese</label>
+                    <input type="text" class="form-control" placeholder="Adrese" name="address" id="address" th:value="${address}" />
+                </div>
+                <button class="btn btn-outline-dark btn-md btn-block" type="submit">Meklēt</button>
+            </form>
+        </div>
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                    <tr>
+                        <th>Tips</th>
+                        <th>Kods</th>
+                        <th>Nosaukums</th>
+                        <th>E-pasts</th>
+                        <th>Telefons</th>
+                        <th>Adrese</th>
+                        <th>Darbības</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-th-each="customer : ${customers}">
+                        <td data-th-text="${customer.customerType.description}">...</td>
+                        <td data-th-text="${customer.code}">...</td>
+                        <td data-th-text="${customer.description}">...</td>
+                        <td data-th-text="${customer.email}">...</td>
+                        <td data-th-text="${customer.phone}">...</td>
+                        <td data-th-text="${customer.address}">...</td>
+                        <td>
+                            <a th:href="@{/operator/customers/edit?code=}+${customer.code}">Labot</a>
+                            &nbsp;
+                            <a th:href="@{/operator/customers/delete?code=}+${customer.code}">Dzēst</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

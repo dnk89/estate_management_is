@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/common :: header"/>
+<body>
+<div th:replace="common/common :: operator-navbar"/>
+<div th:replace="common/common :: error-panel"/>
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-3">
+            <h2 class="form-signin-heading">Klienta labošana</h2>
+            <hr />
+            <form th:action="@{/operator/customers/edit}" method="post">
+                <div class="form-group" >
+                    <label for="customerType">Klienta tips</label>
+                    <select class="form-control" th:value="${customerType}" name="customerType" id="customerType">
+                        <option th:each="ct : ${T(edu.rtu.cs.pit.estatemanagement.customers.domain.CustomerType).values()}"
+                                th:value="${ct}" th:text="${ct.description}" th:selected="${ct==calculationType}" />
+                    </select>
+                </div>
+                <div class="form-group" >
+                    <label for="code">Personas vai reģistrācijas kods</label>
+                    <input type="text" class="form-control" placeholder="Kods" name="code" id="code" th:value="${code}" />
+                </div>
+                <div class="form-group">
+                    <label for="description">Vārds uzvārds vai nosaukums</label>
+                    <input type="text" class="form-control" placeholder="Nosaukums" name="description" id="description" th:value="${description}" />
+                </div>
+                <div class="form-group">
+                    <label for="email">E-pasts</label>
+                    <input type="email" class="form-control" placeholder="E-pasts" name="email" id="email" th:value="${email}" />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefons</label>
+                    <input type="text" class="form-control" placeholder="Telefons" name="phone" id="phone" th:value="${phone}" />
+                </div>
+                <div class="form-group">
+                    <label for="address">Adrese</label>
+                    <input type="text" class="form-control" placeholder="Adrese" name="address" id="address" th:value="${address}" />
+                </div>
+                <hr />
+                <button class="btn btn-outline-dark btn-block" type="submit">Saglabāt izmaiņas</button>
+                <a href="/operator/customers" class="btn btn-outline-danger btn-block" role="button">Atcelt</a>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<div th:replace="common/common :: scripts"/>
+
+</body>
+</html>
