@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/common :: header"/>
+<body>
+<div th:replace="common/common :: operator-navbar"/>
+<div th:replace="common/common :: error-panel"/>
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-3">
+            <h2 class="form-signin-heading">Jauns tarifs</h2>
+            <hr />
+            <form th:action="@{/operator/rates/create}" method="post">
+                <div class="form-group">
+                    <label for="code">Kods</label>
+                    <input type="text"
+                           roleId="code"
+                           class="form-control"
+                           placeholder="Ievadiet kodu"
+                           name="code"
+                           id="code"
+                           autofocus="autofocus"
+                           th:value="${code}"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="description">Nosaukums</label>
+                    <input type="text"
+                           roleId="description"
+                           class="form-control"
+                           placeholder="Ievadiet nosaukumu"
+                           id="description"
+                           name="description"
+                           th:value="${description}"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="value">Likme</label>
+                    <input type="number"
+                           step="0.01"
+                           class="form-control"
+                           th:value="${value}"
+                           id="value"
+                           name="value"
+                           roleId="value"
+                           placeholder="Ievadiet likmi"
+                    />
+                </div>
+                <hr />
+                <button class="btn btn-outline-dark btn-block" type="submit">Izveidot</button>
+                <a href="/operator/rates" class="btn btn-outline-danger btn-block" role="button">Atcelt</a>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<div th:replace="common/common :: scripts"/>
+
+</body>
+</html>

@@ -38,7 +38,7 @@ public class HomeController {
 
     @RequestMapping("/operator")
     public String operator() {
-        return "redirect:/operator/contracts";
+        return "redirect:/operator/rates";
     }
 
     @RequestMapping("/customer")
